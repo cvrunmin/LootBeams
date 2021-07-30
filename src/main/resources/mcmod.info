@@ -1,0 +1,16 @@
+[
+{
+  "modid": "lootbeams",
+  "name": "LootBeams",
+  "description": "Renders highly configurable colored beams on dropped items!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["shiroroku(elise)"],
+  "credits": "amo",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

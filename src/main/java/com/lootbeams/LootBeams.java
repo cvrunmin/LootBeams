@@ -1,17 +1,12 @@
 package com.lootbeams;
 
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod(LootBeams.MODID)
+@Mod(modid = LootBeams.MODID, name = LootBeams.NAME, version = LootBeams.VERSION)
 public class LootBeams {
-
 	public static final String MODID = "lootbeams";
+	public static final String NAME = "LootBeams";
+	public static final String VERSION = "1.12.2-release";
 
-	public LootBeams() {
-		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Configuration.CLIENT_CONFIG);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::init);
-	}
+
 }
