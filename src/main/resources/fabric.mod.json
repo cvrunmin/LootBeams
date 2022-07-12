@@ -1,0 +1,47 @@
+{
+    "schemaVersion": 1,
+    "id": "lootbeams",
+    "version": "${version}",
+
+    "name": "LootBeams",
+    "description": "Renders highly configurable colored beams on dropped items!",
+    "authors": [
+        "shiroroku(elise)"
+    ],
+    "contributors": [
+        "cvrunmin"
+    ],
+    "contact": {
+        "homepage": "https://fabricmc.net/",
+        "sources": "https://github.com/cvrunmin/lootbeams"
+    },
+
+    "license": "MIT",
+    "icon": "assets/lootbeams/icon.png",
+
+    "environment": "client",
+    "entrypoints": {
+        "client": [
+            "com.lootbeams.LootBeams"
+        ],
+        "modmenu": [
+            "com.lootbeams.compat.LootBeamsModMenuEntry"
+        ]
+    },
+    "mixins": [
+        "mixin.lootbeams.json"
+    ],
+
+    "depends": {
+        "fabricloader": ">=0.12.0",
+        "fabric": "*",
+        "minecraft": ">=1.16"
+    },
+    "suggests": {
+        "clothconfig": "*",
+        "modmenu": "*"
+    },
+    "custom": {
+
+    }
+}
