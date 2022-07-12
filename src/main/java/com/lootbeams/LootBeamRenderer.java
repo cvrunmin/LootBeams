@@ -262,6 +262,10 @@ public abstract class LootBeamRenderer extends RenderType {
 		builder.vertex(pose, x, y, z).color(red, green, blue, alpha).uv(texu, texv).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(15728880).normal(normal, 0.0F, 1.0F, 0.0F).endVertex();
 	}
 
+	private static String toBinaryName(String mapName){
+		return "L" + mapName.replace('.', '/') + ";";
+	}
+
 	private static RenderType createRenderType() {
 		RenderType.CompositeState state = RenderType.CompositeState.builder()
 				.setTextureState(new RenderStateShard.TextureStateShard(LOOT_BEAM_TEXTURE, false, false))
@@ -273,7 +277,12 @@ public abstract class LootBeamRenderer extends RenderType {
 				.setWriteMaskState(RenderType.COLOR_WRITE).createCompositeState(false);
 		try {
 			Method method = RenderType.class.getDeclaredMethod(
-					FabricLoader.getInstance().getMappingResolver().mapMethodName("official", "net.minecraft.client.renderer.RenderType", "create", "(Ljava/lang/String;Lcom/mojang/blaze3d/vertex/VertexFormat;Lcom/mojang/blaze3d/vertex/VertexFormat$Mode;IZZLnet/minecraft/client/renderer/RenderType$CompositeState;)Lnet/minecraft/client/renderer/RenderType$CompositeRenderType;"),
+					FabricLoader.getInstance().getMappingResolver().mapMethodName("intermediary", "net.minecraft.class_1921", "method_24049",
+							"(Ljava/lang/String;" + toBinaryName("net.minecraft.class_293")
+									+ toBinaryName("net.minecraft.class_293$class_5596")
+									+ "IZZ"
+									+ toBinaryName("net.minecraft.class_1921$class_4688") + ")"
+									+ toBinaryName("net.minecraft.class_1921$class_4687")),
 					String.class, VertexFormat.class, VertexFormat.Mode.class, int.class, boolean.class, boolean.class, CompositeState.class);
 			method.setAccessible(true);
 			return (RenderType) method.invoke(null, "loot_beam", DefaultVertexFormat.BLOCK, VertexFormat.Mode.QUADS, 256, false, true, state);
