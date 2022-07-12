@@ -61,42 +61,47 @@ public class Configuration {
 		File configFile = FabricLoader.getInstance().getConfigDir().resolve(LootBeams.MODID + "-client.toml").toFile();
 		Configuration inst = new Configuration();
 		if (configFile.isFile()) {
-			var main = new Toml().read(configFile).getTable("Loot Beams");
-			inst.renderNameColor = main.getBoolean("render_name_color", true);
-			inst.renderRarityColor = main.getBoolean("render_rarity_color", true);
-			inst.beamRadius = main.getDouble("beam_radius", 1.0).floatValue();
-			inst.beamHeight = main.getDouble("beam_height", 1.0).floatValue();
-			inst.beamYOffset = main.getDouble("beam_y_offset", 0.0).floatValue();
-			inst.beamAlpha = main.getDouble("beam_alpha", 0.85).floatValue();
-			inst.renderDistance = main.getDouble("render_distance", 24.0).floatValue();
-			inst.colorOverrides = main.getList("color_overrides", new ArrayList<>());
+			try{
+				var main = new Toml().read(configFile).getTable("\"Loot Beams\"");
+				inst.renderNameColor = main.getBoolean("render_name_color", true);
+				inst.renderRarityColor = main.getBoolean("render_rarity_color", true);
+				inst.beamRadius = main.getDouble("beam_radius", 1.0).floatValue();
+				inst.beamHeight = main.getDouble("beam_height", 1.0).floatValue();
+				inst.beamYOffset = main.getDouble("beam_y_offset", 0.0).floatValue();
+				inst.beamAlpha = main.getDouble("beam_alpha", 0.85).floatValue();
+				inst.renderDistance = main.getDouble("render_distance", 24.0).floatValue();
+				inst.colorOverrides = main.getList("color_overrides", new ArrayList<>());
 
-			var items = main.getTable("Items");
-			inst.allItems = items.getBoolean("all_items", true);
-			inst.onlyRare = items.getBoolean("only_rare", false);
-			inst.onlyEquipment = items.getBoolean("only_equipment", false);
-			inst.whitelist = items.getList("whitelist", new ArrayList<>());
-			inst.blacklist = items.getList("blacklist", new ArrayList<>());
+				var items = main.getTable("Items");
+				inst.allItems = items.getBoolean("all_items", true);
+				inst.onlyRare = items.getBoolean("only_rare", false);
+				inst.onlyEquipment = items.getBoolean("only_equipment", false);
+				inst.whitelist = items.getList("whitelist", new ArrayList<>());
+				inst.blacklist = items.getList("blacklist", new ArrayList<>());
 
-			var nametags = main.getTable("Nametags");
-			inst.borders = nametags.getBoolean("borders", true);
-			inst.renderNametags = nametags.getBoolean("render_nametags", true);
-			inst.renderNametagsOnlook = nametags.getBoolean("render_nametags_onlook", true);
-			inst.renderStackcount = nametags.getBoolean("render_stackcount", true);
-			inst.nametagLookSensitivity = nametags.getDouble("nametag_look_sensitivity", 0.018).floatValue();
-			inst.nametagTextAlpha = nametags.getDouble("nametag_text_alpha", 1.0).floatValue();
-			inst.nametagBackgroundAlpha = nametags.getDouble("nametag_background_alpha", 0.5).floatValue();
-			inst.nametagScale = nametags.getDouble("nametag_scale", 1.0).floatValue();
-			inst.nametagYOffset = nametags.getDouble("nametag_y_offset", 0.75).floatValue();
-			inst.dmclootCompatRarity = nametags.getBoolean("dmcloot_compat_rarity", true);
-			inst.customRarities = nametags.getList("custom_rarities", new ArrayList<>());
-			inst.whiteRarities = nametags.getBoolean("white_rarities", false);
-			return inst;
+				var nametags = main.getTable("Nametags");
+				inst.borders = nametags.getBoolean("borders", true);
+				inst.renderNametags = nametags.getBoolean("render_nametags", true);
+				inst.renderNametagsOnlook = nametags.getBoolean("render_nametags_onlook", true);
+				inst.renderStackcount = nametags.getBoolean("render_stackcount", true);
+				inst.nametagLookSensitivity = nametags.getDouble("nametag_look_sensitivity", 0.018).floatValue();
+				inst.nametagTextAlpha = nametags.getDouble("nametag_text_alpha", 1.0).floatValue();
+				inst.nametagBackgroundAlpha = nametags.getDouble("nametag_background_alpha", 0.5).floatValue();
+				inst.nametagScale = nametags.getDouble("nametag_scale", 1.0).floatValue();
+				inst.nametagYOffset = nametags.getDouble("nametag_y_offset", 0.75).floatValue();
+				inst.dmclootCompatRarity = nametags.getBoolean("dmcloot_compat_rarity", true);
+				inst.customRarities = nametags.getList("custom_rarities", new ArrayList<>());
+				inst.whiteRarities = nametags.getBoolean("white_rarities", false);
+			}
+			catch (Exception e){
+				LootBeams.LOGGER.warn("cannot load config file", e);
+				return new Configuration();
+			}
 		}
 		else{
 			inst.save();
-			return inst;
 		}
+		return inst;
 	}
 
 	public void save(){
